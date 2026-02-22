@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Content Extractor</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="header-icon">📝</div>
+        <div>
+          <h1>Content Extractor</h1>
+          <p class="subtitle">Trích xuất nội dung → Markdown</p>
+        </div>
+        <button id="btn-settings" class="settings-btn" title="Cài đặt API Key">⚙️</button>
+      </div>
+
+      <!-- Settings Panel (hidden by default) -->
+      <div id="settings-panel" class="settings-panel hidden">
+        <div class="settings-header">⚙️ Cài đặt Gemini AI</div>
+        <div class="settings-row">
+          <label for="api-key-input">Gemini API Key</label>
+          <input
+            type="password"
+            id="api-key-input"
+            placeholder="AIza..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <button id="btn-save-key" class="save-key-btn">💾 Lưu API Key</button>
+        <p class="settings-hint">
+          Lấy API key miễn phí tại
+          <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com</a>
+        </p>
+      </div>
+
+      <!-- Mode Selection -->
+      <div class="mode-section">
+        <button id="btn-full-page" class="mode-btn active" title="Toàn bộ trang">
+          📄 Toàn trang
+        </button>
+        <button id="btn-selection" class="mode-btn" title="Chọn vùng nội dung">
+          ✂️ Chọn vùng
+        </button>
+      </div>
+
+      <!-- Options -->
+      <div class="options">
+        <label class="option-row">
+          <input type="checkbox" id="opt-images" checked />
+          <span>🖼️ Lấy URL ảnh</span>
+        </label>
+        <label class="option-row">
+          <input type="checkbox" id="opt-links" checked />
+          <span>🔗 Giữ link</span>
+        </label>
+        <label class="option-row">
+          <input type="checkbox" id="opt-tables" checked />
+          <span>📊 Chuyển bảng</span>
+        </label>
+        <label class="option-row">
+          <input type="checkbox" id="opt-frontmatter" checked />
+          <span>📋 Thêm frontmatter</span>
+        </label>
+      </div>
+
+      <!-- Extract Button -->
+      <button id="btn-extract" class="extract-btn">
+        <span class="extract-icon">🚀</span>
+        Trích xuất nội dung
+      </button>
+
+      <!-- Status -->
+      <div id="status" class="status hidden"></div>
+
+      <!-- Result -->
+      <div id="result-section" class="result-section hidden">
+        <div class="result-header">
+          <span class="result-title">📋 Kết quả Markdown</span>
+          <div class="result-actions">
+            <button id="btn-copy" class="action-btn" title="Copy">📋 Copy</button>
+            <button id="btn-download" class="action-btn" title="Tải file .md">💾 Tải .md</button>
+          </div>
+        </div>
+        <textarea id="result-text" class="result-text" readonly></textarea>
+        <div class="result-stats">
+          <span id="stat-chars">0 ký tự</span>
+          <span id="stat-images">0 ảnh</span>
+          <span id="stat-links">0 link</span>
+        </div>
+
+        <!-- AI Processing Panel -->
+        <div id="ai-panel" class="ai-panel">
+          <div class="ai-panel-title">✨ Xử lý bằng AI</div>
+          <p class="ai-panel-desc">
+            AI sẽ tự động: phân loại &amp; gắn tags, viết lại nội dung tự nhiên hơn,
+            xoá các điều hướng/quảng cáo website gốc.
+          </p>
+          <div class="ai-actions">
+            <button id="btn-ai-full" class="ai-btn ai-btn-primary">
+              🤖 Xử lý &amp; Viết lại toàn bộ
+            </button>
+            <button id="btn-ai-clean" class="ai-btn ai-btn-secondary">
+              🧹 Chỉ dọn &amp; phân loại
+            </button>
+          </div>
+          <div id="ai-status" class="ai-status hidden"></div>
+        </div>
+      </div>
+
+      <!-- Selection overlay info -->
+      <div id="selection-info" class="selection-info hidden">
+        💡 Click vào vùng nội dung trên trang web để chọn. Nhấn <b>ESC</b> để hủy.
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
